@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,8 +9,10 @@
 <body>
   <div class="container">
     <h1>FRANKO.AR</h1>
-    <img src="avatar.png" alt="Avatar" class="avatar"/>
-    <h2 id="nombre-avatar">Franko</h2>
+    <div class="avatar-container">
+      <img src="http://localhost:8000/static/avatar.png" alt="Avatar" class="avatar" onerror="this.src='avatar.png'" />
+    </div>
+    <h2 id="nombre-avatar">Cargando...</h2>
 
     <button id="btn-historia">Ver historia</button>
     <div id="historia" class="output"></div>
