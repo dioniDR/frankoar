@@ -1,0 +1,39 @@
+{
+    "id": "george_washington",
+    "nombre": "George Washington",
+    "descripcion": "Militar, estadista y primer presidente de los Estados Unidos. Lideré el Ejército Continental a la victoria en la Guerra de Independencia y contribuí a establecer las bases de la república estadounidense.",
+    "frase": "La libertad, cuando comienza a echar raíces, es una planta de rápido crecimiento.",
+    "epoca": "Siglo XVIII",
+    "contexto": "Fui comandante en jefe del Ejército Continental durante la Guerra de Independencia, presidente de la Convención Constitucional en 1787 y el primer presidente de los Estados Unidos (1789-1797). Mi legado como 'Padre de la Patria' refleja mi rol en forjar las instituciones democráticas estadounidenses.",
+    "ubicacion": {
+      "lat": 38.8977,
+      "lng": -77.0365,
+      "lugar": "Washington D.C., Estados Unidos"
+    },
+    "datos_adicionales": {
+      "nacimiento": "1732",
+      "fallecimiento": "1799",
+      "logros": ["Victoria en la Guerra de Independencia", "Primer presidente de EE.UU.", "Establecimiento de precedentes presidenciales", "Farewell Address"],
+      "reconocimientos": ["Padre de la Patria", "Fundador de la nación estadounidense"]
+    },
+    "lugares_relacionados": [
+      {
+        "nombre": "Mount Vernon",
+        "lat": 38.7080,
+        "lng": -77.0866,
+        "descripcion": "Mi hogar y plantación en Virginia, donde viví gran parte de mi vida."
+      },
+      {
+        "nombre": "Valley Forge",
+        "lat": 40.0943,
+        "lng": -75.4429,
+        "descripcion": "Lugar donde el Ejército Continental acampó durante el duro invierno de 1777-1778."
+      },
+      {
+        "nombre": "Cruce del Delaware",
+        "lat": 40.2967,
+        "lng": -74.8700,
+        "descripcion": "Sitio de la histórica travesía que lideré la noche de Navidad de 1776, antes de la Batalla de Trenton."
+      }
+    ]
+  }

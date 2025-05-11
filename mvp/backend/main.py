@@ -1,10 +1,29 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException, Query
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import os
+import re
 
-app = FastAPI()
+# Importar los módulos mejorados
+from utils_mejorado import (
+    listar_personajes, 
+    cargar_personaje, 
+    personajes_cercanos,
+    respuesta_basada_en_keyword
+)
+from openai_conn import responder_con_openai
+
+# Crear directorios necesarios
+for path in ["static", "static/avatares", "content/personajes", "content/qa"]:
+    os.makedirs(path, exist_ok=True)
+
+app = FastAPI(
+    title="FRANKO.AR API",
+    description="API para el proyecto FRANKO.AR de realidad aumentada con personajes históricos",
+    version="1.0.0"
+)
 
 # Configurar CORS
 app.add_middleware(
@@ -15,56 +34,97 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Datos simulados
-avatar_info = {
-    "nombre": "Francisco Miranda",
-    "ubicacion": {
-        "lat": -34.6037,
-        "lng": -58.3816,
-        "lugar": "Plaza de Mayo"
-    },
-    "imagen": "/static/avatar.png"
-}
-
-historia = {
-    "titulo": "El inicio de una revolución",
-    "contenido": "En esta plaza nació el espíritu revolucionario de América del Sur. Aquí se reunieron los patriotas que soñaban con una nación libre e independiente."
-}
-
-# Crear directorio de static si no existe
-os.makedirs("static", exist_ok=True)
-
 # Montar carpeta de imágenes estáticas
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/avatar")
-async def get_avatar():
-    return avatar_info
+# Modelos de datos
+class Consulta(BaseModel):
+    pregunta: str
+    personaje_id: str = None
 
-@app.get("/historia")
-async def get_historia():
-    return historia
+class CoordenadaConsulta(BaseModel):
+    lat: float
+    lng: float
+    radio: float = 10.0  # Radio en kilómetros
 
-@app.post("/preguntar")
-async def preguntar(request: Request):
-    data = await request.json()
-    pregunta = data.get("pregunta", "")
-    
-    # Sistema básico de respuestas basado en palabras clave
-    respuesta = "No tengo información sobre eso en mis registros históricos."
-    
-    if not pregunta:
-        respuesta = "¿Qué deseas saber sobre la historia de este lugar?"
-    elif "quien" in pregunta.lower() or "quién" in pregunta.lower():
-        respuesta = "Soy Francisco Miranda, uno de los precursores de la independencia en América Latina."
-    elif "revolución" in pregunta.lower() or "independencia" in pregunta.lower():
-        respuesta = "La revolución comenzó como un movimiento de ideas que luego se transformó en acción. Muchos de los primeros pasos se dieron justo aquí, donde estamos ahora."
-    elif "plaza" in pregunta.lower() or "lugar" in pregunta.lower():
-        respuesta = "Esta plaza ha sido testigo de momentos cruciales en nuestra historia. Aquí se han reunido patriotas, se han declarado independencias y se ha celebrado la libertad."
-    
-    return JSONResponse(content={"pregunta": pregunta, "respuesta": respuesta})
-
-# Agregar una ruta de salud para verificar que el servidor está funcionando
+# Endpoints
 @app.get("/")
 async def root():
-    return {"mensaje": "API de FRANKO.AR funcionando correctamente"}
+    """Punto de entrada para verificar que la API está funcionando."""
+    return {
+        "proyecto": "FRANKO.AR",
+        "estado": "activo",
+        "endpoints": [
+            {"ruta": "/personajes", "descripcion": "Lista todos los personajes disponibles"},
+            {"ruta": "/personaje/{id}", "descripcion": "Información detallada de un personaje específico"},
+            {"ruta": "/personajes_cercanos", "descripcion": "Encuentra personajes cercanos a una ubicación"},
+            {"ruta": "/preguntar", "descripcion": "Envía preguntas a un personaje (básico)"},
+            {"ruta": "/consultar", "descripcion": "Envía preguntas a un personaje (IA avanzada)"}
+        ]
+    }
+
+@app.get("/personajes")
+async def get_personajes():
+    """Lista todos los personajes disponibles en el sistema."""
+    return listar_personajes()
+
+@app.get("/personaje/{personaje_id}")
+async def get_personaje(personaje_id: str = None):
+    """Obtiene la información detallada de un personaje específico."""
+    personaje = cargar_personaje(personaje_id)
+    if "error" in personaje:
+        raise HTTPException(status_code=404, detail="Personaje no encontrado")
+    return personaje
+
+@app.post("/personajes_cercanos")
+async def get_personajes_cercanos(coordenadas: CoordenadaConsulta):
+    """
+    Encuentra personajes históricos cercanos a las coordenadas proporcionadas.
+    
+    Args:
+        lat (float): Latitud
+        lng (float): Longitud
+        radio (float, opcional): Radio de búsqueda en kilómetros (default: 10km)
+    
+    Returns:
+        list: Personajes ordenados por proximidad
+    """
+    try:
+        cercanos = personajes_cercanos(
+            coordenadas.lat, 
+            coordenadas.lng, 
+            coordenadas.radio
+        )
+        
+        # Simplificar la respuesta para no enviar todos los datos
+        return [
+            {
+                "id": p["id"],
+                "nombre": p["nombre"],
+                "frase": p["frase"],
+                "distancia": round(p["distancia"], 2),
+                "lugar": p.get("lugar_relacionado", p.get("ubicacion", {}).get("lugar", ""))
+            }
+            for p in cercanos
+        ]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al buscar personajes cercanos: {str(e)}")
+
+@app.get("/avatar")
+async def get_avatar(personaje_id: str = Query(None, description="ID del personaje a consultar")):
+    """Obtiene la información del avatar para presentarlo en AR."""
+    personaje = cargar_personaje(personaje_id)
+    if "error" in personaje:
+        raise HTTPException(status_code=404, detail="Personaje no encontrado")
+    
+    # Crear la información del avatar
+    avatar_info = {
+        "id": personaje["id"],
+        "nombre": personaje.get("nombre", "Personaje Histórico"),
+        "frase": personaje.get("frase", ""),
+        "imagen": "/static/avatar.png",  # Imagen por defecto
+        "ubicacion": personaje.get("ubicacion", {
+            "lat": 0,
+            "lng": 0,
+            "lugar": "Ubicación desconocida"
+        })

@@ -1,0 +1,22 @@
+[
+  {
+    "pregunta": "¿Quién fue [Nombre del personaje]?",
+    "respuesta": "Respuesta en primera persona"
+  },
+  {
+    "pregunta": "¿Dónde naciste?",
+    "respuesta": "Respuesta en primera persona"
+  },
+  {
+    "pregunta": "¿Cuál fue tu mayor logro?",
+    "respuesta": "Respuesta en primera persona"
+  },
+  {
+    "pregunta": "¿Cómo era la vida en tu época?",
+    "respuesta": "Respuesta en primera persona"
+  },
+  {
+    "pregunta": "¿Cuál es tu legado?",
+    "respuesta": "Respuesta en primera persona"
+  }
+]

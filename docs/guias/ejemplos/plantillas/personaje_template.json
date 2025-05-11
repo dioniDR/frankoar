@@ -1,0 +1,27 @@
+{
+  "id": "nombre_unico_sin_espacios",
+  "nombre": "Nombre Completo",
+  "descripcion": "Breve descripción del personaje en primera persona",
+  "frase": "Una frase célebre o característica del personaje",
+  "epoca": "Siglo o período histórico (ej: 'Siglo XIX')",
+  "contexto": "Información sobre el contexto histórico y rol del personaje",
+  "ubicacion": {
+    "lat": 0.0000,
+    "lng": 0.0000,
+    "lugar": "Nombre del lugar principal asociado al personaje"
+  },
+  "datos_adicionales": {
+    "nacimiento": "Año",
+    "fallecimiento": "Año",
+    "logros": ["Logro 1", "Logro 2", "Logro 3"],
+    "reconocimientos": ["Reconocimiento 1", "Reconocimiento 2"]
+  },
+  "lugares_relacionados": [
+    {
+      "nombre": "Nombre del lugar",
+      "lat": 0.0000,
+      "lng": 0.0000,
+      "descripcion": "Breve descripción de la relación del personaje con este lugar"
+    }
+  ]
+}
