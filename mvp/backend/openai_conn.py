@@ -1,5 +1,5 @@
 from openai import OpenAI
-from utils_mejorado import cargar_clave_openai, cargar_qa_personaje, respuesta_basada_en_keyword
+from utils import cargar_clave_openai, cargar_qa_personaje, respuesta_basada_en_keyword
 
 def responder_con_openai(pregunta: str, personaje: dict) -> dict:
     """

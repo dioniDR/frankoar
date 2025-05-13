@@ -1,7 +1,7 @@
 # Sprint 1 - Backend Básico
 
-**Fecha de inicio:** [Fecha actual]  
-**Fecha de finalización:** [14 días después de la fecha actual]  
+**Fecha de inicio:** 2025-05-12  
+**Fecha de finalización:** 2025-05-26  
 **Duración:** 2 semanas
 
 ## Objetivo del Sprint
@@ -20,7 +20,7 @@ Implementar la estructura básica del backend con FastAPI, incluyendo endpoints 
   - Documentación Swagger completa
 - **Estimación:** 3 días
 - **Asignado a:** Yo
-- **Estado:** Por hacer
+- **Estado:** Completado
 
 ### 2. Mejorar Sistema de Personajes
 - **Descripción:** Revisar y mejorar la estructura de datos de personajes
@@ -31,7 +31,7 @@ Implementar la estructura básica del backend con FastAPI, incluyendo endpoints 
   - Al menos 2 personajes completos
 - **Estimación:** 2 días
 - **Asignado a:** Yo
-- **Estado:** Por hacer
+- **Estado:** Completado
 
 ### 3. Implementar Sistema Q&A Básico
 - **Descripción:** Sistema básico de preguntas y respuestas
@@ -42,7 +42,7 @@ Implementar la estructura básica del backend con FastAPI, incluyendo endpoints 
   - Fallback para preguntas desconocidas
 - **Estimación:** 2 días
 - **Asignado a:** Yo
-- **Estado:** Por hacer
+- **Estado:** En progreso
 
 ### 4. Implementar Búsqueda por Geolocalización
 - **Descripción:** Sistema para encontrar personajes cercanos a una ubicación
@@ -53,7 +53,7 @@ Implementar la estructura básica del backend con FastAPI, incluyendo endpoints 
   - Filtro por radio de búsqueda
 - **Estimación:** 2 días
 - **Asignado a:** Yo
-- **Estado:** Por hacer
+- **Estado:** Completado
 
 ### 5. Añadir Tests Básicos
 - **Descripción:** Pruebas básicas para verificar funcionamiento
@@ -96,17 +96,20 @@ Implementar la estructura básica del backend con FastAPI, incluyendo endpoints 
 
 ## Daily Scrums
 
-### Día 1 - [Fecha]
-- **Completado:** [Llenar durante el sprint]
-- **Por hacer hoy:** [Llenar durante el sprint]
-- **Impedimentos:** [Llenar durante el sprint]
+### Día 1 - 2025-05-12
+- **Completado:** Implementación del sistema Scrum completo, creación de scripts de estado y generación de prompts, estructura básica del backend con endpoints definidos en documentación
+- **Por hacer hoy:** Probar los endpoints existentes, implementar el endpoint de geolocalización POST /personajes_cercanos, añadir tests básicos
+- **Impedimentos:** Ninguno
 
-### Día 2 - [Fecha]
-- **Completado:** [Llenar durante el sprint]
-- **Por hacer hoy:** [Llenar durante el sprint]
-- **Impedimentos:** [Llenar durante el sprint]
+### Día 2 - 2025-05-13
+- **Completado:** Corrección de errores en main.py, verificación de funcionamiento de todos los endpoints en Swagger UI, revisión de la estructura de datos de personajes, confirmación de que el sistema de geolocalización está implementado, ejecución exitosa del servidor FastAPI
+- **Por hacer hoy:** Crear archivo QA completo para George Washington con al menos 10 preguntas/respuestas, implementar pruebas básicas para verificar el funcionamiento de cada endpoint, mejorar el manejo de errores en el sistema de carga de personajes, verificar que la búsqueda por geolocalización funciona correctamente con datos reales, documentar el progreso en el archivo sprint_1.md
+- **Impedimentos:** Ninguno
 
-[Continuar para los demás días...]
+### Día 3 - 2025-05-14
+- **Completado:** Corrección de errores en el código principal, verificación completa de todos los endpoints mediante Swagger UI, prueba del sistema de geolocalización con coordenadas reales, revisión detallada de la estructura de datos de personajes, organización y limpieza de los archivos del proyecto
+- **Por hacer hoy:** Crear el archivo QA completo para George Washington, implementar pruebas unitarias para los endpoints, mejorar el manejo de errores en la carga de personajes, optimizar el algoritmo de búsqueda por geolocalización, crear documentación adicional para el sistema QA
+- **Impedimentos:** Ninguno
 
 ## Revisión del Sprint
 

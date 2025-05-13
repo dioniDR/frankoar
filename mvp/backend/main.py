@@ -6,8 +6,8 @@ from pydantic import BaseModel
 import os
 import re
 
-# Importar los módulos mejorados
-from utils_mejorado import (
+# Importar los módulos
+from utils import (
     listar_personajes, 
     cargar_personaje, 
     personajes_cercanos,
@@ -116,7 +116,7 @@ async def get_avatar(personaje_id: str = Query(None, description="ID del persona
     personaje = cargar_personaje(personaje_id)
     if "error" in personaje:
         raise HTTPException(status_code=404, detail="Personaje no encontrado")
-    
+
     # Crear la información del avatar
     avatar_info = {
         "id": personaje["id"],
@@ -128,3 +128,9 @@ async def get_avatar(personaje_id: str = Query(None, description="ID del persona
             "lng": 0,
             "lugar": "Ubicación desconocida"
         })
+    }  # Properly closed dictionary
+
+    return avatar_info
+
+# Fixing the unresolved import
+# Ensure the utils module exists and is in the correct path. If not, provide the correct path or create the module.

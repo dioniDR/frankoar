@@ -272,3 +272,6 @@ def respuesta_basada_en_keyword(pregunta, personaje_id=None):
     
     # Respuesta por defecto
     return f"Interesante pregunta. Como {nombre}, podría decir que {personaje.get('frase', 'la historia siempre tiene mucho que enseñarnos')}. ¿Hay algo más específico que quieras saber sobre mí?"
+
+# Cambiar el nombre del módulo para que coincida con el archivo existente
+# Si utils_mejorado no existe, se debe usar utils en su lugar.
